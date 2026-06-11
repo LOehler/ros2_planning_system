@@ -112,10 +112,13 @@ DomainReader::get_joint_domain() const
   ret += ")\n\n";
 
   ret += "(:functions\n";
+  std::set<std::string> funcs_set;
   for (auto & domain : domains_) {
-    if (!domain.functions.empty()) {
-      ret += domain.functions + "\n";
-    }
+    std::vector<std::string> funcs = tokenize(domain.functions, "\n");
+    funcs_set.insert(funcs.begin(), funcs.end());
+  }
+  for (auto & func : funcs_set) {
+    ret += func + "\n";
   }
   ret += ")\n\n";
 
